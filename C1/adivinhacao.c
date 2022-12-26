@@ -11,7 +11,12 @@ int main() {
     printf("* Bem-vindo ao jogo de adivinhação! *\n");
     printf("**************************************\n");
 
+    //número a ser adivinhado
     int num_secreto = 42;
 
-    printf("O número %d é o secreto. Guarde ele muito bem!", num_secreto);
+    //interação do usuário com o jogo
+    int palpite;
+    printf("Qual o seu palpite? ");
+    scanf("%d", &palpite);
+    printf("O seu palpite foi: %d\n", palpite);
 }
