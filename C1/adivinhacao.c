@@ -19,4 +19,12 @@ int main() {
     printf("Qual o seu palpite? ");
     scanf("%d", &palpite);
     printf("O seu palpite foi: %d\n", palpite);
+
+    //validando o palpite através de condicionais
+    if (palpite == num_secreto){
+        printf("Boa campeão, você acertou!");
+    } else {
+        printf("É meu guerreiro, não foi dessa vez...\n");
+        printf("Tente novamente!");
+    }
 }
