@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <locale.h> //Lib que permite a acentuação nos prints do código
 
+#define NUM_TENTATIVAS 5 //diretiva que cria uma "variável" constante
+
 int main() {
 
     //Código necessário para que os acentos funcionem
@@ -17,8 +19,8 @@ int main() {
     //interação do usuário com o jogo
     int palpite;
 
-    for(int i = 1; i <= 3; i++){ //criando um loop com for
-        printf("Tentativa %d de 3\n", i); //exibindo para o usuário o número de tentativas que ele possui
+    for(int i = 1; i <= NUM_TENTATIVAS; i++){ //criando um loop com for
+        printf("Tentativa %d de %d\n", i, NUM_TENTATIVAS); //exibindo para o usuário o número de tentativas que ele possui
         printf("Qual o seu palpite? ");
         scanf("%d", &palpite);
         printf("O seu palpite foi: %d\n", palpite);
