@@ -27,23 +27,23 @@ int main() {
 
         //validando o palpite através de condicionais
         int correto = palpite == num_secreto;
+        int num_maior = palpite > num_secreto;
+        int num_menor = palpite < num_secreto;
+
         if (correto){
             printf("Boa campeão, você acertou!\n");
             break; //encerra o loop
+        }
+        
+        else if(num_maior){ //uma cadeia de if com else if faz com que o programa execute somente a condição correta
+            printf("O número escolhido foi maior que o secreto...\n");
+        } 
 
-        } else {
-            int num_maior = palpite > num_secreto; //inserir condições dentro de variáveis pode auxiliar na legibilidade do código
-            if(num_maior){
-                printf("O número escolhido foi maior que o secreto...\n");
-            } else {
-                printf("O número escolhido foi menor que o secreto\n");
-            }
-
-            printf("Tente novamente!\n");
-
+        else {
+            printf("O número escolhido foi menor que o secreto\n");
         }
     }
-
+    
     printf("Fim de jogo!\n");
 
 }
