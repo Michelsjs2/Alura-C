@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <locale.h> //Lib que permite a acentuação nos prints do código
 
 /*#define NUM_TENTATIVAS 5 - diretiva que cria uma "variável" constante*/
@@ -18,8 +19,11 @@ int main() {
 
     //interação do usuário com o jogo
     int palpite;
+
+    //pontuação do jogo
     int vitoria = 0;
     int tentativas = 0;
+    int pontuacao = 1000;
 
     /*
     for(int i = 1; i <= NUM_TENTATIVAS; i++){ criando um loop com for
@@ -51,6 +55,9 @@ int main() {
         }
 
         tentativas++;
+        int pontos_perdiros = abs((palpite - num_secreto) / 2); //utilizando função para retorno de número absoluto
+        pontuacao = pontuacao - pontos_perdiros;
+
     }
     
     if(tentativas == 1){
@@ -59,6 +66,7 @@ int main() {
     printf("Você acertou em %d tentativas\n", tentativas);
     }
     
+    printf("Sua pontuação foi de: %d\n", pontuacao);
     printf("Fim de jogo!\n");
 
 }
