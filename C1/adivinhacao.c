@@ -18,8 +18,8 @@ int main() {
     printf("    |*                                                                  *|\n");
     printf("    |*                                                                  *|\n");
     printf("    |*                                                                  *|\n");
-    printf("    |*                  Bem-vindo ao jogo de adivinhação!               *|\n");
-    printf("    |*                                                                  *|\n");
+    printf("    |*                  Bem-vindo ao jogo de adivinhação                *|\n");
+    printf("    |*                             de números!                          *|\n");
     printf("    |*                                                                  *|\n");
     printf("    |*               Escolha o nível de dificuldade que deseja!         *|\n");
     printf("    |*                             (1) Fácil                            *|\n");
@@ -71,7 +71,9 @@ int main() {
     //validando o palpite através de condicionais
     int correto = 0;
 
-   for(int i = 1; i <= num_tentativas; i++){ //voltamos ao laço for
+    printf("Escolha um número entre 0 e 99\n");
+
+    for(int i = 1; i <= num_tentativas; i++){ //voltamos ao laço for
         printf("Tentativa %d de %d\n", tentativas+1, num_tentativas); //exibindo para o usuário o número de tentativas que ele possui
         printf("Qual o seu palpite? ");
         scanf("%d", &palpite);
