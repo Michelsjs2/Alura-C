@@ -19,8 +19,8 @@ int main() {
     int segundos = time(0);
     srand(segundos);
     
-    int num_random = rand();
-    int num_secreto = num_random % 100; //o % é utilizado para pegar o resto da divisão de um cálculo, e nesse caso o seu valor irá de 0 a 99
+    int num_rand = rand();
+    int num_secreto = num_rand % 100; //o % é utilizado para pegar o resto da divisão de um cálculo, e nesse caso o seu valor irá de 0 a 99
 
     //interação do usuário com o jogo
     int palpite;
@@ -30,15 +30,39 @@ int main() {
     int tentativas = 0;
     double pontuacao = 1000;
 
-    /*
-    for(int i = 1; i <= NUM_TENTATIVAS; i++){ criando um loop com for
-    */
+    //validando o palpite através de condicionais
+    int correto = 0;
 
-    while(vitoria == 0){ //uso do laço while para permitir que usuário faça múltiplas tentativas
-        printf("Tentativa %d\n", tentativas+1); //exibindo para o usuário o número de tentativas que ele possui
+    //escolha de nivel de dificuldade
+    int dificuldade;
+    printf("Escolha o nível de dificuldade\n");
+    printf("(1) Fácil, (2) Médio e (3) Difícil\n\n");
+    printf("Escolha: ");
+    scanf("%d", &dificuldade);
+
+    int num_tentativas;
+    switch (dificuldade) { //alternativa ao if e elseifs
+        case 1:
+            num_tentativas = 16;
+            break;
+
+        case 2:
+            num_tentativas = 11;
+            break;
+        
+        default:
+            num_tentativas = 6;
+            break;
+    }
+
+   for(int i = 1; i <= num_tentativas; i++){ //voltamos ao laço for
+        printf("Tentativa %d de %d\n", tentativas+1, num_tentativas); //exibindo para o usuário o número de tentativas que ele possui
         printf("Qual o seu palpite? ");
         scanf("%d", &palpite);
         printf("O seu palpite foi: %d\n", palpite);
+
+        correto = palpite == num_secreto;
+        int num_maior = palpite > num_secreto;
 
         if(palpite < 0){
             printf("Você não pode dar palpites utilizando números negativos!\n");
@@ -46,13 +70,8 @@ int main() {
             continue; //faz o loop pular para a próxima iteração. E é um comando que funciona com o While também
         }
 
-        //validando o palpite através de condicionais
-        int correto = palpite == num_secreto;
-        int num_maior = palpite > num_secreto;
-
         if(correto){
-            printf("Você acertou, parabéns!\n");
-            vitoria = 1;
+            break;
         } else if(num_maior){ //uma cadeia de if com else if faz com que o programa execute somente a condição correta
             printf("O número escolhido foi maior que o secreto...\n");
         } else {
@@ -65,13 +84,17 @@ int main() {
 
     }
     
-    if(tentativas == 1){
-        printf("Você é uma lenda, acertou de primeira!\n");
+    if(correto){
+        if(tentativas == 1){
+            printf("Você é uma lenda, acertou de primeira!\n");
+        } else {
+            printf("Você acertou em %d tentativas\n", tentativas);
+        }
+        printf("Sua pontuação foi de: %.1f\n", pontuacao);
     } else {
-    printf("Você acertou em %d tentativas\n", tentativas);
+        printf("Você perdeu... Tente novamente!\n");
     }
-    
-    printf("Sua pontuação foi de: %.1f\n", pontuacao);
+
     printf("Fim de jogo!\n");
 
 }
