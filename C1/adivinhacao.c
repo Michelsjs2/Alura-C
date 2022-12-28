@@ -25,12 +25,19 @@ int main() {
         scanf("%d", &palpite);
         printf("O seu palpite foi: %d\n", palpite);
 
+        if(palpite < 0){
+            printf("Você não pode dar palpites utilizando números negativos!\n");
+            i--;
+
+            continue; //faz o loop pular para a próxima iteração
+        }
+
         //validando o palpite através de condicionais
         int correto = palpite == num_secreto;
         int num_maior = palpite > num_secreto;
         int num_menor = palpite < num_secreto;
 
-        if (correto){
+        if(correto){
             printf("Boa campeão, você acertou!\n");
             break; //encerra o loop
         }
