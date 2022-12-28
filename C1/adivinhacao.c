@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <locale.h> //Lib que permite a acentuação nos prints do código
 
-#define NUM_TENTATIVAS 5 //diretiva que cria uma "variável" constante
+/*#define NUM_TENTATIVAS 5 - diretiva que cria uma "variável" constante*/
 
 int main() {
 
@@ -18,37 +18,45 @@ int main() {
 
     //interação do usuário com o jogo
     int palpite;
+    int vitoria = 0;
+    int tentativas = 0;
 
-    for(int i = 1; i <= NUM_TENTATIVAS; i++){ //criando um loop com for
-        printf("Tentativa %d de %d\n", i, NUM_TENTATIVAS); //exibindo para o usuário o número de tentativas que ele possui
+    /*
+    for(int i = 1; i <= NUM_TENTATIVAS; i++){ criando um loop com for
+    */
+
+    while(vitoria == 0){ //uso do laço while para permitir que usuário faça múltiplas tentativas
+        printf("Tentativa %d\n", tentativas+1); //exibindo para o usuário o número de tentativas que ele possui
         printf("Qual o seu palpite? ");
         scanf("%d", &palpite);
         printf("O seu palpite foi: %d\n", palpite);
 
         if(palpite < 0){
             printf("Você não pode dar palpites utilizando números negativos!\n");
-            i--;
 
-            continue; //faz o loop pular para a próxima iteração
+            continue; //faz o loop pular para a próxima iteração. E é um comando que funciona com o While também
         }
 
         //validando o palpite através de condicionais
         int correto = palpite == num_secreto;
         int num_maior = palpite > num_secreto;
-        int num_menor = palpite < num_secreto;
 
         if(correto){
-            printf("Boa campeão, você acertou!\n");
-            break; //encerra o loop
-        }
-        
-        else if(num_maior){ //uma cadeia de if com else if faz com que o programa execute somente a condição correta
+            printf("Você acertou, parabéns!\n");
+            vitoria = 1;
+        } else if(num_maior){ //uma cadeia de if com else if faz com que o programa execute somente a condição correta
             printf("O número escolhido foi maior que o secreto...\n");
-        } 
-
-        else {
-            printf("O número escolhido foi menor que o secreto\n");
+        } else {
+            printf("O número escolhido foi menor que o secreto...\n");
         }
+
+        tentativas++;
+    }
+    
+    if(tentativas == 1){
+        printf("Você é uma lenda, acertou de primeira!\n");
+    } else {
+    printf("Você acertou em %d tentativas\n", tentativas);
     }
     
     printf("Fim de jogo!\n");
