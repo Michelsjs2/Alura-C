@@ -11,9 +11,47 @@ int main() {
     setlocale(LC_ALL, "Portuguese_Brazil");
 
     //cabeçalho do jogo
-    printf("**************************************\n");
-    printf("* Bem-vindo ao jogo de adivinhação! *\n");
-    printf("**************************************\n");
+    printf("   _____________________________________________________________________\n");
+    printf(" / \\                                                                    \\\n");
+    printf("|   |                                                                    |\n");
+    printf(" \\_ |********************************************************************|\n");
+    printf("    |*                                                                  *|\n");
+    printf("    |*                                                                  *|\n");
+    printf("    |*                                                                  *|\n");
+    printf("    |*                  Bem-vindo ao jogo de adivinhação!               *|\n");
+    printf("    |*                                                                  *|\n");
+    printf("    |*                                                                  *|\n");
+    printf("    |*               Escolha o nível de dificuldade que deseja!         *|\n");
+    printf("    |*                             (1) Fácil                            *|\n");
+    printf("    |*                             (2) Médio                            *|\n");
+    printf("    |*                             (3) Difícil                          *|\n");
+    printf("    |*                                                                  *|\n");
+    printf("    |*                                                                  *|\n");
+    printf("    |*                                                                  *|\n");
+    printf("    |********************************************************************|\n");
+    printf("    |    ________________________________________________________________|___\n");
+    printf("    |   /                                                                   /\n");
+    printf("     \\_/___________________________________________________________________/\n\n\n");
+    printf("                                   Sua escolha: ");
+
+    //escolha de nivel de dificuldade
+    int dificuldade;
+    scanf("%d", &dificuldade);
+
+    int num_tentativas;
+    switch (dificuldade) { //alternativa ao if e elseifs
+        case 1:
+            num_tentativas = 16;
+            break;
+
+        case 2:
+            num_tentativas = 11;
+            break;
+        
+        default:
+            num_tentativas = 6;
+            break;
+    }
 
     //número a ser adivinhado, agora sendo randômico!
     int segundos = time(0);
@@ -32,28 +70,6 @@ int main() {
 
     //validando o palpite através de condicionais
     int correto = 0;
-
-    //escolha de nivel de dificuldade
-    int dificuldade;
-    printf("Escolha o nível de dificuldade\n");
-    printf("(1) Fácil, (2) Médio e (3) Difícil\n\n");
-    printf("Escolha: ");
-    scanf("%d", &dificuldade);
-
-    int num_tentativas;
-    switch (dificuldade) { //alternativa ao if e elseifs
-        case 1:
-            num_tentativas = 16;
-            break;
-
-        case 2:
-            num_tentativas = 11;
-            break;
-        
-        default:
-            num_tentativas = 6;
-            break;
-    }
 
    for(int i = 1; i <= num_tentativas; i++){ //voltamos ao laço for
         printf("Tentativa %d de %d\n", tentativas+1, num_tentativas); //exibindo para o usuário o número de tentativas que ele possui
@@ -85,16 +101,16 @@ int main() {
     }
     
     if(correto){
-        if(tentativas == 1){
-            printf("Você é uma lenda, acertou de primeira!\n");
+        if(tentativas == 0){
+            printf("                                              Você é uma lenda, acertou de primeira!\n");
         } else {
-            printf("Você acertou em %d tentativas\n", tentativas);
+            printf("                                                  Você acertou em %d tentativas\n", tentativas);
         }
-        printf("Sua pontuação foi de: %.1f\n", pontuacao);
+        printf("                                          ^(^---^)^ Sua pontuação foi de: %.1f ^(^---^)^\n", pontuacao);
     } else {
-        printf("Você perdeu... Tente novamente!\n");
+        printf("                                          (;---;) Você perdeu... Tente novamente! (;---;)\n");
     }
 
-    printf("Fim de jogo!\n");
+    printf("                                                 ->>-----> Fim de jogo! <-----<<-\n");
 
 }
