@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h> //Lib que nos dá acesso ao abs()
+#include <time.h> //Lib que trabalha com tempo e data
 #include <locale.h> //Lib que permite a acentuação nos prints do código
 
 /*#define NUM_TENTATIVAS 5 - diretiva que cria uma "variável" constante*/
@@ -14,8 +15,12 @@ int main() {
     printf("* Bem-vindo ao jogo de adivinhação! *\n");
     printf("**************************************\n");
 
-    //número a ser adivinhado
-    int num_secreto = 42;
+    //número a ser adivinhado, agora sendo randômico!
+    int segundos = time(0);
+    srand(segundos);
+    
+    int num_random = rand();
+    int num_secreto = num_random % 100; //o % é utilizado para pegar o resto da divisão de um cálculo, e nesse caso o seu valor irá de 0 a 99
 
     //interação do usuário com o jogo
     int palpite;
