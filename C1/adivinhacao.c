@@ -89,9 +89,9 @@ int main() {
         if(correto){
             break;
         } else if(num_maior){ //uma cadeia de if com else if faz com que o programa execute somente a condição correta
-            printf("O número escolhido foi maior que o secreto...\n");
+            printf("O palpite foi maior que o número secreto...\n\n");
         } else {
-            printf("O número escolhido foi menor que o secreto...\n");
+            printf("O palpite foi menor que o número secreto...\n\n");
         }
 
         tentativas++;
@@ -104,7 +104,7 @@ int main() {
         if(tentativas == 0){
             printf("                                              Você é uma lenda, acertou de primeira!\n");
         } else {
-            printf("                                                  Você acertou em %d tentativas\n", tentativas);
+            printf("                                                  Você acertou em %d tentativas\n", tentativas+1);
         }
         printf("                                          ^(^---^)^ Sua pontuação foi de: %.1f ^(^---^)^\n", pontuacao);
     } else {
