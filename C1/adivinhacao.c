@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> //Lib que nos dá acesso ao abs()
 #include <locale.h> //Lib que permite a acentuação nos prints do código
 
 /*#define NUM_TENTATIVAS 5 - diretiva que cria uma "variável" constante*/
@@ -55,7 +55,7 @@ int main() {
         }
 
         tentativas++;
-        double pontos_perdiros = (palpite - num_secreto) / 2.0;
+        double pontos_perdiros = abs(palpite - num_secreto) / (double)2; //uso do casting e do abs()
         pontuacao = pontuacao - pontos_perdiros;
 
     }
