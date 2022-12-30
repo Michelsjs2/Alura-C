@@ -3,7 +3,7 @@
 
 #include <locale.h>
 
-void iniciar_jogo(){
+void iniciar_jogo(){ //cabeçalho do jogo
     printf("****************************\n");
     printf("*                          *\n");
     printf("*       Jogo da Forca      *\n");
@@ -11,10 +11,17 @@ void iniciar_jogo(){
     printf("****************************\n\n");
 }
 
+void fpalpite(char palpites[26], int tentativas){ //captura o palpite do jogador e coloca em um array
+    char palpite;
+    printf("Dê o palpite de uma letra: ");
+    scanf(" %c", &palpite);
+
+    palpites[tentativas] = palpite;
+}
+
 int main(){
     setlocale(LC_ALL, "Portuguese_Brazil");
     
-    //cabeçalho do jogo
     iniciar_jogo();
 
     char palavra_secreta [20]; //uma variável que possui um [] no final de um array
@@ -29,10 +36,12 @@ int main(){
     int forca = 0;
 
     do {
+        //imprime a palavra secreta
         for (int i = 0; i < strlen(palavra_secreta); i++){ 
 
-            //verificar se o palpite do usuário bate com uma das letras secretas
             int acertou = 0;
+
+            //verifica se uma letra já foi palpitada
             for(int j = 0; j < num_tentativas; j++){
                 if(tentativa_usuario[j] == palavra_secreta[i]){
                     acertou = 1;
@@ -40,7 +49,6 @@ int main(){
                 }
             }
             
-            //if que imprime a letra que o usuário acertou caso ele o faça, ou mantém o _
             if(acertou){
                 printf("%c ", palavra_secreta[i]);
             } else {
@@ -50,14 +58,7 @@ int main(){
 
         printf("\n\n");
         
-        //interação do usuário com o jogo
-        char palpite;
-        printf("Dê o palpite de uma letra: ");
-        scanf(" %c", &palpite);
-
-        /*guarda a letra que o usuário palpitou dentro 
-        do array e acrescenta um número aos chutes feitos pelo usuário*/
-        tentativa_usuario[num_tentativas] = palpite;
+        fpalpite(tentativa_usuario, num_tentativas);
         num_tentativas++;
 
     } while(!vitoria && !forca);
