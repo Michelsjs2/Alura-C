@@ -3,8 +3,19 @@
 
 #include <locale.h>
 
+void iniciar_jogo(){
+    printf("****************************\n");
+    printf("*                          *\n");
+    printf("*       Jogo da Forca      *\n");
+    printf("*                          *\n");
+    printf("****************************\n\n");
+}
+
 int main(){
     setlocale(LC_ALL, "Portuguese_Brazil");
+    
+    //cabeçalho do jogo
+    iniciar_jogo();
 
     char palavra_secreta [20]; //uma variável que possui um [] no final de um array
     sprintf(palavra_secreta, "TESTANDO"); //esse comando facilita a inserção de uma palavra dentro de um array de caracteres
@@ -37,7 +48,7 @@ int main(){
             }
         }
 
-        printf("\n");
+        printf("\n\n");
         
         //interação do usuário com o jogo
         char palpite;
