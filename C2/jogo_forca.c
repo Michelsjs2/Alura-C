@@ -11,12 +11,14 @@ void iniciar_jogo(){ //cabeçalho do jogo
     printf("****************************\n\n");
 }
 
-void fpalpite(char palpites[26], int tentativas){ //captura o palpite do jogador e coloca em um array
+//captura o palpite do jogador e coloca em um array
+void fpalpite(char palpites[26], int* tentativas){ //o int* é um ponteiro que aponta para um inteiro
     char palpite;
     printf("Dê o palpite de uma letra: ");
     scanf(" %c", &palpite);
 
-    palpites[tentativas] = palpite;
+    palpites[(*tentativas)] = palpite; //o (*var) é necessário para pegar o valor que está dentro da variável para onde apontou o ponteiro
+    (*tentativas)++;
 }
 
 int main(){
@@ -58,8 +60,7 @@ int main(){
 
         printf("\n\n");
         
-        fpalpite(tentativa_usuario, num_tentativas);
-        num_tentativas++;
+        fpalpite(tentativa_usuario, &num_tentativas);
 
     } while(!vitoria && !forca);
 }
