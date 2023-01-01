@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h> //lib necessária para o uso do strlen()
+#include <stdlib.h>
+#include <time.h>
 #include "jogo_forca.h"
 
 #include <locale.h>
@@ -18,7 +20,25 @@ void iniciar_jogo(){ //cabeçalho do jogo
 }
 
 void escolhe_palavra(){
-    sprintf(palavra_secreta, "TESTANDO"); //esse comando facilita a inserção de uma palavra dentro de um array de caracteres
+    FILE* f;
+
+    f = fopen("palavras.txt", "r"); //abre o arquivo
+    if(f == 0){ //tratamento de possível falha do banco de dados
+        printf("Infelizmente, o banco de dados não está disponível\n\n");
+        exit(1);
+    }
+
+    int qtd_de_palavras;
+    fscanf(f, "%d", &qtd_de_palavras); //verifica a quantidade de palavras, checando a primeira linha do arquivo
+
+    srand(time(0));
+    int randomico = rand() % qtd_de_palavras;
+
+    for (int i = 0; i <= randomico; i++){
+        fscanf(f, "%s", palavra_secreta);
+    }
+
+    fclose(f); //fecha o arquivo
 }
 
 //captura o palpite do jogador e coloca em um array
