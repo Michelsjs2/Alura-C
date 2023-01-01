@@ -4,8 +4,9 @@
 #include <locale.h>
 
 //variáveis globais
-int vitoria = 0;
-int derrota = 0;
+char palavra_secreta[20];
+char num_de_palpites[26];
+int tentativas = 0;
 
 void iniciar_jogo(){ //cabeçalho do jogo
     printf("****************************\n");
@@ -16,21 +17,21 @@ void iniciar_jogo(){ //cabeçalho do jogo
 }
 
 //captura o palpite do jogador e coloca em um array
-void fpalpite(char possibilidades_palpites[26], int* palpites_feitos){ //o int* é um ponteiro que aponta para um inteiro
+void dar_palpite(){
     char palpite;
     printf("Dê o palpite de uma letra: ");
     scanf(" %c", &palpite);
 
-    possibilidades_palpites[(*palpites_feitos)] = palpite; //o (*var) é necessário para pegar o valor que está dentro da variável para onde apontou o ponteiro
-    (*palpites_feitos)++;
+    num_de_palpites[tentativas] = palpite;
+    tentativas++; 
 }
 
 //verifica se uma letra já foi palpitada
-int verifica_palpite(char letra, char possibilidades_palpites[26], int palpites_feitos){
+int verifica_palpite(char letra){
     int acertou = 0;
 
-    for(int j = 0; j < palpites_feitos; j++){
-        if(possibilidades_palpites[j] == letra){
+    for(int j = 0; j < tentativas; j++){
+        if(num_de_palpites[j] == letra){
             acertou = 1;
             break;
         }
@@ -40,11 +41,10 @@ int verifica_palpite(char letra, char possibilidades_palpites[26], int palpites_
 }
 
 //imprime a palavra secreta
-void desenha_forca(char palavra_secreta[20], char possibilidades_palpites[26], int palpites_feitos){
+void desenha_forca(){
     for (int i = 0; i < strlen(palavra_secreta); i++){ 
 
-        int acertou = verifica_palpite(palavra_secreta[i], possibilidades_palpites, palpites_feitos);
-        if(acertou){
+        if(verifica_palpite(palavra_secreta[i])){
             printf("%c ", palavra_secreta[i]);
         } else {
             printf("_ ");
@@ -53,50 +53,52 @@ void desenha_forca(char palavra_secreta[20], char possibilidades_palpites[26], i
     printf("\n\n");
 }
 
-void escolhe_palavra(char palavra_secreta[20]){
+void escolhe_palavra(){
     sprintf(palavra_secreta, "TESTANDO"); //esse comando facilita a inserção de uma palavra dentro de um array de caracteres
 }
 
-//valida o erro dos palpites e derrota do jogador
-void verifica_erros(char palavra_secreta[20], char possibilidades_palpites[26], int palpites_feitos){
-
+//valida os erros dos palpites e derrota do jogador
+int derrota(){
     int erros = 0;
 
-    for(int i; i < palpites_feitos; i++){
+    for(int i = 0; i < tentativas; i++){
+
         int letra_certa = 0;
 
-        for (int j = 0; j < strlen(palavra_secreta); j++){
-            if(possibilidades_palpites[i] == palavra_secreta[j]){
-                
+        for(int j = 0; j < strlen(palavra_secreta); j++){
+            if(num_de_palpites[i] == palavra_secreta[j]){
                 letra_certa = 1;
                 break;
             }
         }
-        
+
         if(!letra_certa) erros++;
     }
 
-    if(erros >= 5){
-        derrota = 1;
+    return erros >= 5;
+}
+
+//valida a vitória do jogador
+int vitoria(){
+    for(int i = 0; i < strlen(palavra_secreta); i++){
+        if(!verifica_palpite(palavra_secreta[i])){
+            return 0;
+        }
     }
 
+    return 1;
 }
 
 int main(){
     setlocale(LC_ALL, "Portuguese_Brazil");
 
-    char palavra_secreta [20]; //uma variável que possui um [] no final de um array
-    char possibilidades_palpites[26];
-    int palpites_feitos = 0;
-
-    escolhe_palavra(palavra_secreta);
+    escolhe_palavra();
     iniciar_jogo();
 
     do {
 
-        desenha_forca(palavra_secreta, possibilidades_palpites, palpites_feitos);
-        fpalpite(possibilidades_palpites, &palpites_feitos);
-        verifica_erros(palavra_secreta, possibilidades_palpites, palpites_feitos);
+        desenha_forca();
+        dar_palpite();
 
-    } while(!vitoria && !derrota);
+    } while(!vitoria() && !derrota());
 }
