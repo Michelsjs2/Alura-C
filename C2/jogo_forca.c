@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h> //lib necessária para o uso do strlen()
+#include "jogo_forca.h"
 
 #include <locale.h>
 
@@ -14,6 +15,10 @@ void iniciar_jogo(){ //cabeçalho do jogo
     printf("*       Jogo da Forca      *\n");
     printf("*                          *\n");
     printf("****************************\n\n");
+}
+
+void escolhe_palavra(){
+    sprintf(palavra_secreta, "TESTANDO"); //esse comando facilita a inserção de uma palavra dentro de um array de caracteres
 }
 
 //captura o palpite do jogador e coloca em um array
@@ -51,10 +56,6 @@ void desenha_forca(){
         }
     }
     printf("\n\n");
-}
-
-void escolhe_palavra(){
-    sprintf(palavra_secreta, "TESTANDO"); //esse comando facilita a inserção de uma palavra dentro de um array de caracteres
 }
 
 //valida os erros dos palpites e derrota do jogador
