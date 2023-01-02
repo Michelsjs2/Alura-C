@@ -10,6 +10,7 @@
 char palavra_secreta[TAMANHO_PALAVRA];
 char num_de_palpites[26];
 int tentativas = 0;
+int dificuldade;
 
 void iniciar_jogo(){ //cabeçalho do jogo
     printf("****************************\n");
@@ -17,12 +18,30 @@ void iniciar_jogo(){ //cabeçalho do jogo
     printf("*       Jogo da Forca      *\n");
     printf("*                          *\n");
     printf("****************************\n\n");
+
+    printf("(1) Fácil, palavra com 5 letras\n");
+    printf("(2) Médio, palavras com 7 letras\n");
+    printf("(3) Difícil, palavras com 10 letras\n\n");
+    printf("Escolha o nível de dificuldade que deseja: ");
+    scanf("%d", &dificuldade);
 }
 
 void escolhe_palavra(){
     FILE* f;
 
-    f = fopen("palavras.txt", "r"); //abre o arquivo
+    switch (dificuldade){
+    case 1:
+        f = fopen("facil.txt", "r");
+        break;
+    case 2:
+        f = fopen("medio.txt", "r");
+        break;
+
+    default:
+        f = fopen("dificil.txt", "r");
+        break;
+    }
+
     if(f == 0){ //tratamento de possível falha do banco de dados
         printf("Infelizmente, o banco de dados não está disponível\n\n");
         exit(1);
@@ -39,6 +58,10 @@ void escolhe_palavra(){
     }
 
     fclose(f); //fecha o arquivo
+
+    printf("\nDicas: Digite os palpites com letra MAIÚSCULA\n");
+    printf("Não é necessário digitar as letras com acento\n\n");
+    printf("Você pode errar até 4 vezes, na 5ª você perde!\n\n");
 }
 
 //captura o palpite do jogador e coloca em um array
@@ -113,8 +136,8 @@ int vitoria(){
 int main(){
     setlocale(LC_ALL, "Portuguese_Brazil");
 
-    escolhe_palavra();
     iniciar_jogo();
+    escolhe_palavra();
 
     do {
 
@@ -138,7 +161,7 @@ int main(){
         printf("                                                              '-------'       \n\n");
 
     } else {
-        printf("\n                                                      Poxa vida, você foi enforcado!\n");
+        printf("\n                                                        Poxa vida, você foi enforcado!\n");
         printf("                                                       A palavra era *** %s ***\n\n", palavra_secreta);
 
         printf("                                                             _______________         \n");
