@@ -1,3 +1,5 @@
+#define TAMANHO_PALAVRA 20
+
 void iniciar_jogo();
 void escolhe_palavra();
 void dar_palpite();

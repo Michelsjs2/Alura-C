@@ -7,7 +7,7 @@
 #include <locale.h>
 
 //variáveis globais
-char palavra_secreta[20];
+char palavra_secreta[TAMANHO_PALAVRA];
 char num_de_palpites[26];
 int tentativas = 0;
 
@@ -122,4 +122,40 @@ int main(){
         dar_palpite();
 
     } while(!vitoria() && !derrota());
+
+    if(vitoria()) {
+        printf("\n                                                        Parabéns, você ganhou!\n\n");
+
+        printf("                                                             ___________      \n");
+        printf("                                                            '._==_==_=_.'     \n");
+        printf("                                                            .-\\:      /-.    \n");
+        printf("                                                           | (|:.     |) |    \n");
+        printf("                                                            '-|:.     |-'     \n");
+        printf("                                                              \\::.    /      \n");
+        printf("                                                               '::. .'        \n");
+        printf("                                                                 ) (          \n");
+        printf("                                                               _.' '._        \n");
+        printf("                                                              '-------'       \n\n");
+
+    } else {
+        printf("\n                                                      Poxa vida, você foi enforcado!\n");
+        printf("                                                       A palavra era *** %s ***\n\n", palavra_secreta);
+
+        printf("                                                             _______________         \n");
+        printf("                                                            /               \\       \n"); 
+        printf("                                                           /                 \\      \n");
+        printf("                                                          /                   \\  \n");
+        printf("                                                          |   XXXX     XXXX   |    \n");
+        printf("                                                          |   XXXX     XXXX   |     \n");
+        printf("                                                          |   XXX       XXX   |      \n");
+        printf("                                                          |                   |      \n");
+        printf("                                                          \\__      XXX      __/     \n");
+        printf("                                                            |\\     XXX     /|       \n");
+        printf("                                                            | |           | |        \n");
+        printf("                                                            | I I I I I I I |        \n");
+        printf("                                                            |  I I I I I I  |        \n");
+        printf("                                                            \\_             _/       \n");
+        printf("                                                              \\_         _/         \n");
+        printf("                                                                \\_______/           \n\n");
+    }
 }
