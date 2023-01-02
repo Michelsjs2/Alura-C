@@ -5,6 +5,7 @@
 #include "jogo_forca.h"
 
 #include <locale.h>
+#include <unistd.h> //para visualizar melhor no cmd
 
 //variáveis globais
 char palavra_secreta[TAMANHO_PALAVRA];
@@ -59,9 +60,9 @@ void escolhe_palavra(){
 
     fclose(f); //fecha o arquivo
 
-    printf("\nDicas: Digite os palpites com letra MAIÚSCULA\n");
-    printf("Não é necessário digitar as letras com acento\n\n");
-    printf("Você pode errar até 4 vezes, na 5ª você perde!\n\n");
+    printf("\nDicas: Digite os palpites com letra MAIÚSCULA e o jogo não tem um tema específico\n");
+    printf("Não é necessário digitar as letras com acento\n");
+    printf("Você pode errar até 6 vezes, na 7ª você perde!\n");
 }
 
 //captura o palpite do jogador e coloca em um array
@@ -90,6 +91,22 @@ int verifica_palpite(char letra){
 
 //imprime a palavra secreta
 void desenha_forca(){
+
+    int erros = palpites_errados();
+
+    printf("  _______       \n");
+    printf(" |/      |      \n");
+    printf(" |      %c%c%c  \n", (erros>=1?'(':' '), 
+                                (erros>=1?'_':' '), (erros>=1?')':' '));
+    printf(" |      %c%c%c  \n", (erros>=4?'\\':' '), 
+                                (erros>=2?'|':' '), (erros>=5?'/': ' '));
+    printf(" |       %c     \n", (erros>=3?'|':' '));
+    printf(" |      %c %c   \n", (erros>=6?'/':' '), 
+                                (erros>=7?'\\':' '));
+    printf(" |              \n");
+    printf("_|___           \n");
+    printf("\n\n");
+
     for (int i = 0; i < strlen(palavra_secreta); i++){ 
 
         if(verifica_palpite(palavra_secreta[i])){
@@ -101,8 +118,7 @@ void desenha_forca(){
     printf("\n\n");
 }
 
-//valida os erros dos palpites e derrota do jogador
-int derrota(){
+int palpites_errados(){
     int erros = 0;
 
     for(int i = 0; i < tentativas; i++){
@@ -119,7 +135,12 @@ int derrota(){
         if(!letra_certa) erros++;
     }
 
-    return erros >= 5;
+    return erros;
+}
+
+//valida derrota do jogador
+int derrota(){
+    return palpites_errados() >= 7;
 }
 
 //valida a vitória do jogador
@@ -147,38 +168,46 @@ int main(){
     } while(!vitoria() && !derrota());
 
     if(vitoria()) {
-        printf("\n                                                        Parabéns, você ganhou!\n\n");
+        desenha_forca();
+        printf("\nParabéns, você ganhou!\n");
 
-        printf("                                                             ___________      \n");
-        printf("                                                            '._==_==_=_.'     \n");
-        printf("                                                            .-\\:      /-.    \n");
-        printf("                                                           | (|:.     |) |    \n");
-        printf("                                                            '-|:.     |-'     \n");
-        printf("                                                              \\::.    /      \n");
-        printf("                                                               '::. .'        \n");
-        printf("                                                                 ) (          \n");
-        printf("                                                               _.' '._        \n");
-        printf("                                                              '-------'       \n\n");
+        printf("     ___________   \n");
+        printf("    '._==_==_=_.'  \n");
+        printf("    .-\\:      /-. \n");
+        printf("   | (|:.     |) | \n");
+        printf("    '-|:.     |-'  \n");
+        printf("      \\::.    /   \n");
+        printf("       '::. .'     \n");
+        printf("         ) (       \n");
+        printf("       _.' '._     \n");
+        printf("      '-------'    \n\n");
+
+        printf("O jogo irá fechar... ");
+        sleep(3); //para dar um tempo ao usuário antes do jogo fechar no cmd
 
     } else {
-        printf("\n                                                        Poxa vida, você foi enforcado!\n");
-        printf("                                                       A palavra era *** %s ***\n\n", palavra_secreta);
+        desenha_forca();
+        printf("\nPoxa vida, você foi enforcado!\n");
+        printf("A palavra era *** %s ***\n\n", palavra_secreta);
 
-        printf("                                                             _______________         \n");
-        printf("                                                            /               \\       \n"); 
-        printf("                                                           /                 \\      \n");
-        printf("                                                          /                   \\  \n");
-        printf("                                                          |   XXXX     XXXX   |    \n");
-        printf("                                                          |   XXXX     XXXX   |     \n");
-        printf("                                                          |   XXX       XXX   |      \n");
-        printf("                                                          |                   |      \n");
-        printf("                                                          \\__      XXX      __/     \n");
-        printf("                                                            |\\     XXX     /|       \n");
-        printf("                                                            | |           | |        \n");
-        printf("                                                            | I I I I I I I |        \n");
-        printf("                                                            |  I I I I I I  |        \n");
-        printf("                                                            \\_             _/       \n");
-        printf("                                                              \\_         _/         \n");
-        printf("                                                                \\_______/           \n\n");
+        printf("       _______________      \n");
+        printf("      /               \\    \n"); 
+        printf("     /                 \\   \n");
+        printf("    /                   \\  \n");
+        printf("    |   XXXX     XXXX   |   \n");
+        printf("    |   XXXX     XXXX   |   \n");
+        printf("    |   XXX       XXX   |   \n");
+        printf("    |                   |   \n");
+        printf("    \\__      XXX      __/  \n");
+        printf("      |\\     XXX     /|    \n");
+        printf("      | |           | |     \n");
+        printf("      | I I I I I I I |     \n");
+        printf("      |  I I I I I I  |     \n");
+        printf("      \\_             _/    \n");
+        printf("        \\_         _/      \n");
+        printf("          \\_______/        \n\n");
+
+        printf("O jogo irá fechar... ");
+        sleep(3);
     }
 }

@@ -5,5 +5,6 @@ void escolhe_palavra();
 void dar_palpite();
 int verifica_palpite(char letra);
 void desenha_forca();
+int palpites_errados();
 int derrota();
 int vitoria();
