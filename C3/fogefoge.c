@@ -12,31 +12,45 @@ int acabou(){
 }
 
 void move(char direcao){
-    
-    m.matriz[heroi.x][heroi.y] = '.'; //limpa o personagem do mapa
 
-    //movendo o personagem de acordo com as teclas pressionadas
+    //valida entrada do usuário
+    if(direcao != 'a' && 
+        direcao != 'w' &&
+        direcao != 's' &&
+        direcao != 'd') return;
+
+    int proximo_x = heroi.x;
+    int proximo_y = heroi.y;
+    
+    //aponta para onde o personagem quer se mover e armazena essa informação para ser validada
     switch(direcao){
         case 'a':
-            m.matriz[heroi.x][heroi.y-1] = '@';
-            heroi.y--;
+            proximo_y--;
             break;
 
         case 'd':
-            m.matriz[heroi.x][heroi.y+1] = '@';
-            heroi.y++;
+            proximo_y++;
             break;
 
         case 'w':
-            m.matriz[heroi.x-1][heroi.y] = '@';
-            heroi.x--;
+            proximo_x--;
             break;
 
         case 's':
-            m.matriz[heroi.x+1][heroi.y] = '@';
-            heroi.x++;
+            proximo_x++;
             break;
     }
+
+    //valida se a próxima posição é válida para o personagem se mover
+    if(proximo_x >= m.linhas) return;
+    if(proximo_y >= m.colunas) return;
+    if(m.matriz[proximo_x][proximo_y] != '.') return;
+
+    //se a posição for válida, move o personagem
+    m.matriz[proximo_x][proximo_y] = '@';
+    m.matriz[heroi.x][heroi.y] = '.';
+    heroi.x = proximo_x;
+    heroi.y = proximo_y;
 
 }
 
