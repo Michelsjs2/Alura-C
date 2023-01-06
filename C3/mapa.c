@@ -3,6 +3,26 @@
 
 #include "mapa.h"
 
+//se a posição for válida, move o personagem
+void move_personagem (MAPA* m, int x_origem, int y_origem, int x_destino, int y_destino){
+    char personagem = m->matriz[x_origem][y_origem];
+    m->matriz[x_destino][y_destino] = personagem;
+    m->matriz[x_origem][y_origem] = '.';
+}
+
+//valida se a próxima posição está dentro da matriz
+int tem_parede(MAPA* m, int x, int y){
+    if(x >= m->linhas) return 0;
+    if(y >= m->colunas) return 0;
+
+    return 1;
+}
+
+//valida se a proxima posição do mapa é vazia
+int posicao_vazia(MAPA* m, int x, int y){
+    return m->matriz[x][y] == '.';
+}
+
 //encontra a posição do herói no mapa quando o jogo inicia
 void encontra_heroi(MAPA* m, POSICAO* p, char c){
     for(int i = 0; i < m->linhas; i++){

@@ -11,13 +11,17 @@ int acabou(){
     return 0;
 }
 
+//valida entrada do usuário
+int direcao_valida (char direcao){
+    return direcao == 'a' || 
+        direcao == 'w' ||
+        direcao == 's' ||
+        direcao == 'd';
+}
+
 void move(char direcao){
 
-    //valida entrada do usuário
-    if(direcao != 'a' && 
-        direcao != 'w' &&
-        direcao != 's' &&
-        direcao != 'd') return;
+    if(!direcao_valida(direcao)) return;
 
     int proximo_x = heroi.x;
     int proximo_y = heroi.y;
@@ -41,17 +45,12 @@ void move(char direcao){
             break;
     }
 
-    //valida se a próxima posição é válida para o personagem se mover
-    if(proximo_x >= m.linhas) return;
-    if(proximo_y >= m.colunas) return;
-    if(m.matriz[proximo_x][proximo_y] != '.') return;
+    if(!tem_parede(&m, proximo_x, proximo_y)) return;
+    if(!posicao_vazia(&m, proximo_x, proximo_y)) return;
 
-    //se a posição for válida, move o personagem
-    m.matriz[proximo_x][proximo_y] = '@';
-    m.matriz[heroi.x][heroi.y] = '.';
+    move_personagem(&m, heroi.x, heroi.y, proximo_x, proximo_y);
     heroi.x = proximo_x;
     heroi.y = proximo_y;
-
 }
 
 int main (){
