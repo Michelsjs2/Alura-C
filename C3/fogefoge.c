@@ -28,19 +28,19 @@ void move(char direcao){
     
     //aponta para onde o personagem quer se mover e armazena essa informação para ser validada
     switch(direcao){
-        case 'a':
+        case ESQUERDA:
             proximo_y--;
             break;
 
-        case 'd':
+        case DIREITA:
             proximo_y++;
             break;
 
-        case 'w':
+        case CIMA:
             proximo_x--;
             break;
 
-        case 's':
+        case BAIXO:
             proximo_x++;
             break;
     }
@@ -56,7 +56,7 @@ void move(char direcao){
 int main (){
 
     le_mapa(&m);
-    encontra_heroi(&m, &heroi, '@');
+    encontra_heroi(&m, &heroi, HEROI);
 
     do {
         imprime_mapa(&m);

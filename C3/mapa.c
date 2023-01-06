@@ -7,7 +7,7 @@
 void move_personagem (MAPA* m, int x_origem, int y_origem, int x_destino, int y_destino){
     char personagem = m->matriz[x_origem][y_origem];
     m->matriz[x_destino][y_destino] = personagem;
-    m->matriz[x_origem][y_origem] = '.';
+    m->matriz[x_origem][y_origem] = VAZIO;
 }
 
 //valida se a próxima posição está dentro da matriz
@@ -20,7 +20,7 @@ int tem_parede(MAPA* m, int x, int y){
 
 //valida se a proxima posição do mapa é vazia
 int posicao_vazia(MAPA* m, int x, int y){
-    return m->matriz[x][y] == '.';
+    return m->matriz[x][y] == VAZIO;
 }
 
 //encontra a posição do herói no mapa quando o jogo inicia
