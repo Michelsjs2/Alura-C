@@ -21,8 +21,7 @@ int movimento_do_fantasma(int x_atual, int y_atual, int* x_destino, int* y_desti
     srand(time(0));
     for (int i = 0; i < 10; i++){ //10 tentativas para encontrar uma direção válida
         int posicao = rand() % 4;
-        if(checa_parede(&m, opcoes[posicao][0], opcoes[posicao][1]) &&
-            posicao_vazia(&m, opcoes[posicao][0], opcoes[posicao][1])) {
+        if(valida_movimento(&m, FANTASMA, opcoes[posicao][0], opcoes[posicao][1])) {
             *x_destino = opcoes[posicao][0];
             *y_destino = opcoes[posicao][1];
 
@@ -59,8 +58,10 @@ void fantasmas(){
     libera_mapa(&auxiliar);
 }
 
-int acabou(){
-    return 0;
+int fim_de_jogo(){
+    POSICAO pos;
+    int heroi_no_mapa = encontra_heroi(&m, &pos, HEROI);
+    return !heroi_no_mapa;
 }
 
 //valida entrada do usuário
@@ -97,8 +98,7 @@ void move(char direcao){
             break;
     }
 
-    if(!checa_parede(&m, proximo_x, proximo_y)) return;
-    if(!posicao_vazia(&m, proximo_x, proximo_y)) return;
+    if(!valida_movimento(&m, HEROI, proximo_x, proximo_y)) return;
 
     move_personagem(&m, heroi.x, heroi.y, proximo_x, proximo_y);
     heroi.x = proximo_x;
@@ -118,7 +118,7 @@ int main (){
         move(comando);
         fantasmas();
 
-    } while (!acabou());
+    } while (!fim_de_jogo());
 
     libera_mapa(&m);
 }

@@ -22,11 +22,17 @@ void move_personagem (MAPA* m, int x_origem, int y_origem, int x_destino, int y_
 }
 
 //valida se a próxima posição está dentro da matriz
-int checa_parede(MAPA* m, int x, int y){
+int checa_limite_mapa(MAPA* m, int x, int y){
     if(x >= m->linhas) return 0;
     if(y >= m->colunas) return 0;
 
     return 1;
+}
+
+//verifica se a próxima posição é ou não uma parede
+int checa_parede(MAPA* m, int x, int y){
+    return m->matriz[x][y] == PAREDE_VERTICAL ||
+           m->matriz[x][y] == PAREDE_HORIZONTAL;
 }
 
 //valida se a proxima posição do mapa é vazia
@@ -34,17 +40,33 @@ int posicao_vazia(MAPA* m, int x, int y){
     return m->matriz[x][y] == VAZIO;
 }
 
+/*verifica se na próxima posição o personagem é igual, possibilitando 
+do Fantasma passar pelo heroi, mas não por outro fantasma*/
+int mesmo_personagem(MAPA* m, char personagem, int x, int y) {
+    return m->matriz[x][y] == personagem;
+}
+
+//agrupa as funções que validam se o personagem pode se mover
+int valida_movimento(MAPA* m, char personagem, int x, int y){
+    return
+        checa_limite_mapa(m, x, y) &&
+        !checa_parede(m, x, y) &&
+        !mesmo_personagem(m, personagem, x, y);
+}
+
 //encontra a posição do herói no mapa quando o jogo inicia
-void encontra_heroi(MAPA* m, POSICAO* p, char c){
+int encontra_heroi(MAPA* m, POSICAO* p, char c){
     for(int i = 0; i < m->linhas; i++){
         for (int j = 0; j < m->colunas; j++){
             if(m->matriz[i][j] == c){
                 p->x = i;
                 p->y = j;
-                break;
+                return 1;
             }
         }
     }
+
+    return 0;
 }
 
 //lê e escaneia o arquivo
