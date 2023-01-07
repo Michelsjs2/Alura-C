@@ -1,7 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "mapa.h"
+
+void mapa_auxiliar(MAPA* destino, MAPA* origem){
+    destino->linhas = origem->linhas;
+    destino->colunas = origem->colunas;
+
+    aloca_mapa(destino);
+    for(int i = 0; i < origem->linhas; i++){
+        strcpy(destino->matriz[i], origem->matriz[i]);
+    }
+}
 
 //se a posição for válida, move o personagem
 void move_personagem (MAPA* m, int x_origem, int y_origem, int x_destino, int y_destino){
@@ -11,7 +22,7 @@ void move_personagem (MAPA* m, int x_origem, int y_origem, int x_destino, int y_
 }
 
 //valida se a próxima posição está dentro da matriz
-int tem_parede(MAPA* m, int x, int y){
+int checa_parede(MAPA* m, int x, int y){
     if(x >= m->linhas) return 0;
     if(y >= m->colunas) return 0;
 
@@ -47,7 +58,7 @@ void le_mapa(MAPA* m){
 
     fscanf (f, "%d %d", &(m->linhas), &(m->colunas));
 
-    aloca_memoria(m);
+    aloca_mapa(m);
 
     //escaneia o arquivo linha a linha
     for (int i = 0; i < 5; i++){
@@ -58,7 +69,7 @@ void le_mapa(MAPA* m){
 }
 
 //alocando espaço na memória de forma dinâmica
-void aloca_memoria(MAPA* m){
+void aloca_mapa(MAPA* m){
     m->matriz = malloc(sizeof(char*) * m->linhas);
     for (int i = 0; i < m->linhas; i++){
         m->matriz[i] = malloc(sizeof(char) * (m->colunas +1));
@@ -73,7 +84,7 @@ void imprime_mapa(MAPA* m){
 }
 
 //liberando o espaço alocado na memória
-void libera_memoria(MAPA* m){  
+void libera_mapa(MAPA* m){  
     for (int i = 0; i < m->linhas; i++){
         free(m->matriz[i]);
     }
